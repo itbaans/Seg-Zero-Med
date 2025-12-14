@@ -13,11 +13,11 @@ python -m verl.trainer.main \
     data.train_files=data/vqa_mcq_840 \
     +data.image_key=image \
     worker.actor.model.model_path=pretrained_models/Qwen2-VL-2B-Instruct \
-    worker.actor.micro_batch_size_per_device_for_update=8 \
-    worker.actor.micro_batch_size_per_device_for_experience=8 \
+    worker.actor.micro_batch_size_per_device_for_update=1 \
+    worker.actor.micro_batch_size_per_device_for_experience=1 \
     worker.rollout.tensor_parallel_size=1 \
-    worker.rollout.gpu_memory_utilization=0.85 \
-    worker.rollout.n=16 \
+    worker.rollout.gpu_memory_utilization=0.3 \
+    worker.rollout.n=6 \
     worker.reward.compute_score=vqa_mcq \
     trainer.n_gpus_per_node=1 \
     trainer.nnodes=1 \

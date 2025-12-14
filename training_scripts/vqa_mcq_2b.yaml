@@ -4,7 +4,7 @@ data:
   prompt_key: problem
   max_prompt_length: 1500
   max_response_length: 2000
-  rollout_batch_size: 32
+  rollout_batch_size: 6
   shuffle: true
   seed: 42
   max_pixels: 12845056
@@ -16,9 +16,9 @@ algorithm:
 
 worker:
   actor:
-    global_batch_size: 32
-    micro_batch_size_per_device_for_update: 8
-    micro_batch_size_per_device_for_experience: 8
+    global_batch_size: 6
+    micro_batch_size_per_device_for_update: 1
+    micro_batch_size_per_device_for_experience: 1
     max_grad_norm: 1.0
     use_kl_loss: true
     kl_loss_coef: 5.0e-3
@@ -40,8 +40,8 @@ worker:
   rollout:
     temperature: 1.0
     tensor_parallel_size: 1
-    gpu_memory_utilization: 0.85
-    n: 16
+    gpu_memory_utilization: 0.3
+    n: 6
     enable_chunked_prefill: true
 
   ref:
