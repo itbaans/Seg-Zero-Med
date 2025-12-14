@@ -10,6 +10,7 @@
 # git clone https://huggingface.co/Qwen/Qwen2-VL-2B-Instruct
 
 python -m verl.trainer.main \
+    --config training_scripts/vqa_mcq_2b.yaml \
     data.train_files=data/vqa_mcq_840 \
     +data.image_key=image \
     worker.actor.model.model_path=pretrained_models/Qwen2-VL-2B-Instruct \
