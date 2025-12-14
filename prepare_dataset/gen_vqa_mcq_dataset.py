@@ -196,7 +196,7 @@ def convert_vqa_to_segzero(mcq_json_path, output_dir, image_resize=840):
 
 if __name__ == "__main__":
     # Configuration
-    MCQ_JSON_PATH = "d:/data_building/diverse_compound_mcq_dataset.json"
+    MCQ_JSON_PATH = "d:/data_building/datasets/diverse_compound_mcq_dataset_regenerated.json"
     OUTPUT_DIR = "d:/data_building/Seg-Zero/data/vqa_mcq_840"
     IMAGE_RESIZE = 840
     
