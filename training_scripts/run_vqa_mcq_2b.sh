@@ -1,7 +1,6 @@
 #!/bin/bash
 
 # VQA MCQ Training with Qwen2-VL-2B
-# Single 24GB GPU configuration
 
 # Download pretrained model first if needed:
 # mkdir -p pretrained_models
@@ -9,11 +8,23 @@
 # git lfs install
 # git clone https://huggingface.co/Qwen/Qwen2-VL-2B-Instruct
 
+export CUDA_VISIBLE_DEVICES=0,1
+
+set -x
+
+export VLLM_ATTENTION_BACKEND=XFORMERS
+
+MODEL_PATH=pretrained_models/Qwen2-VL-2B-Instruct # replace it with your local file path
+
+RUN_NAME=$(basename "$0" .sh)
+
+
 python -m verl.trainer.main \
-    --config training_scripts/vqa_mcq_2b.yaml \
+    config=training_scripts/vqa_mcq_2b.yaml \
     data.train_files=data/vqa_mcq_840 \
-    +data.image_key=image \
-    worker.actor.model.model_path=pretrained_models/Qwen2-VL-2B-Instruct \
+    data.image_key=image \
+    data.val_files=None \
+    worker.actor.model.model_path=${MODEL_PATH} \
     worker.actor.micro_batch_size_per_device_for_update=1 \
     worker.actor.micro_batch_size_per_device_for_experience=1 \
     worker.rollout.tensor_parallel_size=1 \
@@ -22,5 +33,6 @@ python -m verl.trainer.main \
     worker.reward.compute_score=vqa_mcq \
     trainer.n_gpus_per_node=1 \
     trainer.nnodes=1 \
-    trainer.default_hdfs_dir=checkpoints/vqa_mcq_2b \
-    trainer.project_name=vqa_mcq_2b
+    trainer.experiment_name=${RUN_NAME} \
+    trainer.project_name=vqa_mcq_2b \
+    trainer.save_checkpoint_path=checkpoints/${RUN_NAME}
