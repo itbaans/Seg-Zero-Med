@@ -22,7 +22,6 @@ RUN_NAME=$(basename "$0" .sh)
 python -m verl.trainer.main \
     config=training_scripts/vqa_mcq_2b.yaml \
     data.train_files=data/vqa_mcq_840 \
-    data.image_key=image \
     data.val_files=None \
     worker.actor.model.model_path=${MODEL_PATH} \
     worker.actor.micro_batch_size_per_device_for_update=1 \

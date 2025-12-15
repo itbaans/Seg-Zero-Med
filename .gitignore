@@ -178,6 +178,6 @@ workdir
 reasonseg_eval_results
 tmp_model_upload
 visionreasoner_workdir/
-data
+#data
 pretrained_models
 visual_results
