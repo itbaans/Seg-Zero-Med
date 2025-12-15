@@ -88,7 +88,12 @@ class RLHFDataset(Dataset):
         self.min_pixels = min_pixels
 
         #self.dataset = load_dataset(data_path)['train']
-        self.dataset = load_from_disk(data_path)['train'] # you can load from disk if you have already downloaded the dataset
+        # Load dataset - handle both DatasetDict with 'train' split and standalone Dataset
+        loaded_data = load_from_disk(data_path)
+        if hasattr(loaded_data, 'keys') and 'train' in loaded_data:
+            self.dataset = loaded_data['train']
+        else:
+            self.dataset = loaded_data  # Dataset is already in the correct format
         
         ################ Old Version ################
         # self.user_prompt = "<image>" \
